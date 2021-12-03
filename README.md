@@ -1,4 +1,4 @@
-Spring project requirements as follows:
+Spring project requirements:
 
 The project must have a specific purpose.
 
