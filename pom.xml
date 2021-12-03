@@ -10,10 +10,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.example</groupId>
-    <artifactId>online-store</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>OnlineStore</name>
+    <groupId>com.tnt</groupId>
+    <artifactId>onlinestore</artifactId>
+    <version>0.0.1</version>
+    <name>Online Store</name>
     <description>University project</description>
 
     <properties>
