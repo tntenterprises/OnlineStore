@@ -4,9 +4,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class AuthorisationInvalid extends WebApplicationException {
+public class NotAuthorised extends WebApplicationException {
 
-    public AuthorisationInvalid(String errorMessage) {
+    public NotAuthorised(String errorMessage) {
         super(Response.status(Response
                 .Status.FORBIDDEN)
                 .entity(new ResponseMessage(errorMessage))
