@@ -25,4 +25,9 @@ public class CartService {
         CartEntity foundCart = cartRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         cartRepository.deleteById(foundCart.getId());
     }
+
+    public void clearCart(Long id) {
+        CartEntity foundCart = cartRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        foundCart.removeAllProducts();
+    }
 }

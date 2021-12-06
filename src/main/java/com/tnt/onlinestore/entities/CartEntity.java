@@ -28,4 +28,8 @@ public class CartEntity {
         products.remove(product);
     }
 
+    public void removeAllProducts() {
+        products.removeAll();
+    }
+
 }
