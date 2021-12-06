@@ -1,14 +1,16 @@
 package com.tnt.onlinestore.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class UserEntity {
 
     private @Id Long id;
@@ -16,11 +18,11 @@ public class UserEntity {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
-    private Set<RoleEntity> roles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Cart cart;
+    private CartEntity cart;
     private String address;
 
     public void addRole(RoleEntity role) {
