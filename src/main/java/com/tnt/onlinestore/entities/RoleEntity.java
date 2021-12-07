@@ -19,4 +19,7 @@ public class RoleEntity {
     @ManyToMany
     private Set<UserEntity> users;
 
+    public RoleEntity(String roleName) {
+        this.roleName = roleName;
+    }
 }
