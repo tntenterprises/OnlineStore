@@ -1,4 +1,4 @@
-package com.tnt.onlinestore.exceptions;
+package com.tnt.onlinestore.exceptions.webApplicationExceptions;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
