@@ -11,3 +11,8 @@ spring:
     h2:
         console:
             enabled: true
+
+    artemis:
+        user: artemis
+        password: simetraehcapa
+        broker-url: artemis
