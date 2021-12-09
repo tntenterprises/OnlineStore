@@ -7,7 +7,15 @@ spring:
         jpa:
             repositories:
                 bootstrap-mode: default
-                
+
     h2:
         console:
             enabled: true
+
+#    autoconfigure:
+#        exclude: org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration
+
+    artemis:
+        user: artemis
+        password: simetraehcapa
+        host: artemis
