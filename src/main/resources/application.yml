@@ -15,4 +15,4 @@ spring:
     artemis:
         user: artemis
         password: simetraehcapa
-        broker-url: artemis
+        host: artemis
