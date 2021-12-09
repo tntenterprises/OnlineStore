@@ -1,14 +1,21 @@
 package com.tnt.onlinestore.controllers;
 
+import javax.persistence.EntityNotFoundException;
+
 import com.tnt.onlinestore.entities.CartEntity;
+import com.tnt.onlinestore.entities.ProductEntity;
 import com.tnt.onlinestore.entities.UserEntity;
 import com.tnt.onlinestore.services.CartService;
 import com.tnt.onlinestore.services.UserService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("carts")
