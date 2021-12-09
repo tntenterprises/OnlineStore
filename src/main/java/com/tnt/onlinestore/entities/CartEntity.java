@@ -1,12 +1,18 @@
 package com.tnt.onlinestore.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.ArrayList;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
@@ -29,7 +35,7 @@ public class CartEntity {
     }
 
     public void removeAllProducts() {
-        products.removeAll();
+        products.removeAll(products);
     }
 
 }
