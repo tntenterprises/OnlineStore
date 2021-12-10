@@ -18,13 +18,13 @@ public class UserEntity {
     private String name;
     private String email;
     private String password;
+    private String address;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private CartEntity cart;
-    private String address;
 
     public void addRole(RoleEntity role) {
         roles.add(role);
