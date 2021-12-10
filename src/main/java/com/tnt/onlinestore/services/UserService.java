@@ -17,13 +17,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final CartService cartService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, CartService cartService) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository,
+                       CartService cartService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.cartService = cartService;
+        this.passwordEncoder = bCryptPasswordEncoder;
     }
 
     public UserEntity createUser(UserEntity userEntity) {

@@ -18,10 +18,10 @@ public class OnlineStoreUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByName(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByEmail(email);
         if (userEntity == null) {
-            throw new UsernameNotFoundException("User with name " + username + " not found.");
+            throw new UsernameNotFoundException("User with name " + email + " not found.");
         }
         return new OnlineStoreUserPrincipal(userEntity);
     }

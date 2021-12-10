@@ -26,6 +26,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
+    // Create a bean of BCryptPasswordEncoder so that it can be loaded in other classes
+    @Bean
+    public BCryptPasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -40,13 +48,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                //login url can be accessed by anybody
-                .loginPage("/login").permitAll()
+                .loginPage("/login")
+                .usernameParameter("email")
+                .permitAll()
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .permitAll();
     }
+
+
 
 }
