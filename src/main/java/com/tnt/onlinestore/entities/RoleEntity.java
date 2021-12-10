@@ -19,7 +19,8 @@ public class RoleEntity {
     @ManyToMany
     private Set<UserEntity> users;
 
-    public RoleEntity(String roleName) {
+    public RoleEntity(Long id, String roleName) {
+        this.id = id;
         this.roleName = roleName;
     }
 }

@@ -19,8 +19,8 @@ public class OnlineStoreApplication {
     @Bean
     public CommandLineRunner setUpRoles(RoleRepository roleRepository) {
         return (args -> {
-            roleRepository.save(new RoleEntity("ROLE_ADMIN"));
-            roleRepository.save(new RoleEntity("ROLE_USER"));
+            roleRepository.save(new RoleEntity(1L,"ROLE_ADMIN"));
+            roleRepository.save(new RoleEntity(2L, "ROLE_USER"));
         });
     }
 
