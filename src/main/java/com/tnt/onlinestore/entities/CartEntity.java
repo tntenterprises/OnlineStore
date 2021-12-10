@@ -1,18 +1,13 @@
 package com.tnt.onlinestore.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
@@ -23,7 +18,7 @@ public class CartEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private UserEntity user;
 
-    @OneToMany(mappedBy = "cartEntity", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ProductEntity> products = new ArrayList<>();
 
     public void addProduct(ProductEntity product) {
@@ -35,7 +30,7 @@ public class CartEntity {
     }
 
     public void removeAllProducts() {
-        products.removeAll(products);
+        products.clear();
     }
 
 }
