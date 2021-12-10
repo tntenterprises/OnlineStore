@@ -30,9 +30,9 @@ public class UserService {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         RoleEntity role = roleRepository.findByRoleName("ROLE_USER");
         userEntity.addRole(role);
-        CartEntity cart = cartService.createCart(new CartEntity());
-        userEntity.setCart(cart);
-        cart.setUser(userEntity);
+        //CartEntity cart = cartService.createCart(new CartEntity());
+        //cart.setUser(userEntity);
+        //userEntity.setCart(cart);
         return userRepository.save(userEntity);
     }
 

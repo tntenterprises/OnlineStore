@@ -1,5 +1,6 @@
 package com.tnt.onlinestore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class ProductEntity {
     private double price;
     
     @ManyToOne
+    @JsonIgnore
     private ManufacturerEntity manufacturer;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

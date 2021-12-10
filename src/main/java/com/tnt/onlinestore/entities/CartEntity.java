@@ -1,5 +1,6 @@
 package com.tnt.onlinestore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class CartEntity {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private UserEntity user;
 
     @OneToMany(cascade = CascadeType.ALL)

@@ -35,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //url /admin only accessible by a UserEntity with role ADMIN
                 .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/users/create").permitAll()
+                .antMatchers("/h2-console/**/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
