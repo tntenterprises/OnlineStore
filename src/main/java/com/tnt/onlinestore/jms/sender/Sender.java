@@ -26,4 +26,11 @@ public class Sender {
         System.out.println("Message sent");
     }
 
+    public void sendCustomMessage(String message) {
+        System.out.println("Sending message at " + LocalDateTime.now().atZone(ZoneId.of("Europe/Stockholm")));
+        MessageObject messageObject = new MessageObject(UUID.randomUUID(), message, LocalDateTime.now());
+        jmsTemplate.convertAndSend(JmsConfig.TNT_QUEUE, messageObject);
+        System.out.println("Message sent");
+    }
+
 }

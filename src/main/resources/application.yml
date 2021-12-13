@@ -15,4 +15,5 @@ spring:
     artemis:
         user: artemis
         password: simetraehcapa
-        host: artemis
+        host: localhost
+        port: 61616
