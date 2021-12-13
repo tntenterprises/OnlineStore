@@ -33,8 +33,10 @@ public class UserService {
 
     public UserEntity createUser(UserEntity userEntity) {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        RoleEntity role = roleRepository.findByRoleName("ROLE_USER");
-        userEntity.addRole(role);
+        //RoleEntity role = roleRepository.findByRoleName("ROLE_ADMIN");
+        RoleEntity role2 = roleRepository.findByRoleName("ROLE_USER");
+        //userEntity.addRole(role);
+        userEntity.addRole(role2);
         userEntity.setCart(new CartEntity(userEntity.getId(), userEntity, Collections.emptyList()));
         userRepository.save(userEntity);
         sender.sendCustomMessage("User created. ID: " + userEntity.getId() + " Name: " + userEntity.getName());
@@ -68,6 +70,16 @@ public class UserService {
     public void updateUserAddress(Long id, String address) {
         UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
         user.setAddress(address);
+    }
+
+    public void addAdminRole(Long id) {
+        UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
+        user.addRole(roleRepository.findByRoleName("ADMIN"));
+    }
+
+    public void removeAdminRole(Long id) {
+        UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
+        user.removeRole(roleRepository.findByRoleName("ADMIN"));
     }
 
 }

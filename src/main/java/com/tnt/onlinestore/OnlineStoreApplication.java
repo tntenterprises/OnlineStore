@@ -1,11 +1,7 @@
 package com.tnt.onlinestore;
 
-import com.tnt.onlinestore.entities.RoleEntity;
-import com.tnt.onlinestore.repositories.RoleRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class OnlineStoreApplication {
@@ -16,12 +12,12 @@ public class OnlineStoreApplication {
 
     //Generate RoleEntities at startup
 
-    @Bean
+    /*@Bean
     public CommandLineRunner setUpRoles(RoleRepository roleRepository) {
         return (args -> {
             roleRepository.save(new RoleEntity(1L,"ROLE_ADMIN"));
             roleRepository.save(new RoleEntity(2L,"ROLE_USER"));
         });
-    }
+    }*/
 
 }
