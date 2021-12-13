@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class UserEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String email;

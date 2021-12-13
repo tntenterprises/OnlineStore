@@ -23,7 +23,7 @@ public class UserController {
         this.cartService = cartService;
     }
 
-    @PostMapping("create")
+    @PostMapping()
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
         UserEntity createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
@@ -32,6 +32,7 @@ public class UserController {
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
+        cartService.deleteCart(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -45,5 +46,11 @@ public class UserController {
     public ResponseEntity<Iterable<UserEntity>> findAllUsers() {
         Iterable<UserEntity> allUsers = userService.findAllUsers();
         return new ResponseEntity<>(allUsers, HttpStatus.OK);
+    }
+
+    @PatchMapping("changepassword/{id}")
+    public ResponseEntity<Optional<UserEntity>> changePassword(@PathVariable Long id, @RequestBody String password) {
+        userService.updateUserPassword(id, password);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.ACCEPTED);
     }
 }

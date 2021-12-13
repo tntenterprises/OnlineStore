@@ -36,14 +36,15 @@ public class UserService {
         RoleEntity role = roleRepository.findByRoleName("ROLE_USER");
         userEntity.addRole(role);
         userEntity.setCart(new CartEntity(userEntity.getId(), userEntity, Collections.emptyList()));
+        userRepository.save(userEntity);
         sender.sendCustomMessage("User created. ID: " + userEntity.getId() + " Name: " + userEntity.getName());
-        return userRepository.save(userEntity);
+        return userEntity;
     }
 
     public void deleteUser(Long id) {
-        UserEntity foundUser = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        cartService.deleteCart(foundUser.getCart().getId());
-        userRepository.deleteById(foundUser.getId());
+        //UserEntity foundUser = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        //cartService.deleteCart(foundUser.getCart().getId());
+        userRepository.deleteById(id);
     }
 
     public Optional<UserEntity> findUserById(Long id) {
@@ -52,5 +53,10 @@ public class UserService {
 
     public Iterable<UserEntity> findAllUsers() {
         return userRepository.findAll();
+    }
+
+    public void updateUserPassword(Long id, String password) {
+        UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
+        user.setPassword(passwordEncoder.encode(password));
     }
 }
