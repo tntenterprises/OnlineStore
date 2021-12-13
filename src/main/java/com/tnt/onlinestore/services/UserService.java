@@ -55,8 +55,19 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public void updateUserName(Long id, String name) {
+        UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
+        user.setName(name);
+    }
+
     public void updateUserPassword(Long id, String password) {
         UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
         user.setPassword(passwordEncoder.encode(password));
     }
+
+    public void updateUserAddress(Long id, String address) {
+        UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
+        user.setAddress(address);
+    }
+
 }

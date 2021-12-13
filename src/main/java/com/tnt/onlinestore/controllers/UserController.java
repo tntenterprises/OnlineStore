@@ -53,4 +53,17 @@ public class UserController {
         userService.updateUserPassword(id, password);
         return new ResponseEntity<>(userService.findUserById(id), HttpStatus.ACCEPTED);
     }
+
+    @PatchMapping("changename/{id}")
+    public ResponseEntity<Optional<UserEntity>> changeName(@PathVariable Long id, @RequestBody String name) {
+        userService.updateUserName(id, name);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.ACCEPTED);
+    }
+
+    @PatchMapping("changeaddress/{id}")
+    public ResponseEntity<Optional<UserEntity>> changeAddress(@PathVariable Long id, @RequestBody String address) {
+        userService.updateUserAddress(id, address);
+        return new ResponseEntity<>(userService.findUserById(id), HttpStatus.ACCEPTED);
+    }
+
 }
