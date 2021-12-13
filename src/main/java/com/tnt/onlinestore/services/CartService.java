@@ -21,6 +21,10 @@ public class CartService {
         return cartRepository.save(cartEntity);
     }
 
+    public Iterable<CartEntity> getAllCarts() {
+        return cartRepository.findAll();
+    }
+
     public void deleteCart(Long id) {
         CartEntity foundCart = cartRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         cartRepository.deleteById(foundCart.getId());

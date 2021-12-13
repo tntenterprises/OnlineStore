@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -34,15 +35,14 @@ public class UserService {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         RoleEntity role = roleRepository.findByRoleName("ROLE_USER");
         userEntity.addRole(role);
-        userEntity.setCart(new CartEntity());
+        userEntity.setCart(new CartEntity(userEntity.getId(), userEntity, Collections.emptyList()));
         sender.sendCustomMessage("User created. ID: " + userEntity.getId() + " Name: " + userEntity.getName());
         return userRepository.save(userEntity);
     }
 
     public void deleteUser(Long id) {
         UserEntity foundUser = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        CartEntity foundCart = foundUser.getCart();
-        cartService.deleteCart(foundCart.getId());
+        cartService.deleteCart(foundUser.getCart().getId());
         userRepository.deleteById(foundUser.getId());
     }
 

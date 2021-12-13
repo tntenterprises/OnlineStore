@@ -1,6 +1,7 @@
 package com.tnt.onlinestore.controllers;
 
 import com.tnt.onlinestore.entities.UserEntity;
+import com.tnt.onlinestore.services.CartService;
 import com.tnt.onlinestore.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final CartService cartService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, CartService cartService) {
         this.userService = userService;
+        this.cartService = cartService;
     }
 
     @PostMapping("create")
