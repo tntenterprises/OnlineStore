@@ -57,9 +57,10 @@ public class CartController {
     }
 
     @PutMapping("clear/{id}")
-    public ResponseEntity<Void> clearCart(@PathVariable Long id) {
+    public ResponseEntity<CartEntity> clearCart(@PathVariable Long id) {
+        CartEntity cart = cartService.getCartById(id);
         cartService.clearCart(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(cart, HttpStatus.ACCEPTED);
     }
 
 }

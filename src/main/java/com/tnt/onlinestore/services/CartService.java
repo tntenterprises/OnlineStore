@@ -26,6 +26,9 @@ public class CartService {
     }
 
     public CartEntity getCartById(Long id) {
+        if (cartRepository.findById(id).isEmpty()) {
+            throw new com.tnt.onlinestore.exceptions.responseEntityExceptions.EntityNotFoundException("Cart with id " + id + " not found.");
+        } else
         return cartRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
