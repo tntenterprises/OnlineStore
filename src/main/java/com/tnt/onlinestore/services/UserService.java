@@ -46,10 +46,10 @@ public class UserService {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 
         //Add role(s) to new userEntity
-        RoleEntity role = roleRepository.findByRoleName("ROLE_ADMIN");
-        RoleEntity role2 = roleRepository.findByRoleName("ROLE_USER");
-        userEntity.addRole(role);
-        userEntity.addRole(role2);
+        RoleEntity adminRole = roleRepository.findByRoleName("ROLE_ADMIN");
+        RoleEntity userRole = roleRepository.findByRoleName("ROLE_USER");
+        userEntity.addRole(adminRole);
+        userEntity.addRole(userRole);
 
         //Cart initialises here as null. Methods to create cart/ set user's cart are called in the UserController.
         userEntity.setCart(null);
@@ -62,16 +62,13 @@ public class UserService {
 
     public void deleteUser(Long id) {
         UserEntity user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        RoleEntity admin = roleRepository.findByRoleName("ROLE_ADMIN");
+
+        RoleEntity adminRole = roleRepository.findByRoleName("ROLE_ADMIN");
         RoleEntity userRole = roleRepository.findByRoleName("ROLE_USER");
 
-        if (userRepository.findById(id).isEmpty()) {
-            throw new com.tnt.onlinestore.exceptions.responseEntityExceptions.EntityNotFoundException("No user with " +
-                    "id "+ id);
-        } else
-
-        user.removeRole(admin);
+        user.removeRole(adminRole);
         user.removeRole(userRole);
+
         userRepository.deleteById(user.getId());
     }
 
