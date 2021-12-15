@@ -1,5 +1,6 @@
 package com.tnt.onlinestore.controllers;
 
+import com.tnt.onlinestore.entities.CartEntity;
 import com.tnt.onlinestore.entities.UserEntity;
 import com.tnt.onlinestore.services.CartService;
 import com.tnt.onlinestore.services.UserService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.Optional;
 
 @RestController
@@ -25,14 +27,22 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity user) {
+
+        //Create user from provided body. The cart will be initialised as null by this point.
         UserEntity createdUser = userService.createUser(user);
+
+        //Create a new cart with using the user's id so that they are shared for simplicity. Assign the new user to it.
+        CartEntity cart = cartService.createCart(new CartEntity(createdUser.getId(), createdUser, Collections.emptyList()));
+
+        //Set the userCart to the one just created.
+        createdUser.setCart(cart);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        cartService.deleteCart(id);
+        //cartService.deleteCart(id);
         return new ResponseEntity<>("User deleted", HttpStatus.NO_CONTENT);
     }
 

@@ -13,14 +13,14 @@ import java.util.Set;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class UserEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String password;
     private String address;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

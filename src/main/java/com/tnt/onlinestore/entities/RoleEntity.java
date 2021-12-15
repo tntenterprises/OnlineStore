@@ -16,7 +16,7 @@ public class RoleEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String roleName;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<UserEntity> users;
 

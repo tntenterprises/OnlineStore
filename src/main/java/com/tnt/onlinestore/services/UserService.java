@@ -1,6 +1,5 @@
 package com.tnt.onlinestore.services;
 
-import com.tnt.onlinestore.entities.CartEntity;
 import com.tnt.onlinestore.entities.RoleEntity;
 import com.tnt.onlinestore.entities.UserEntity;
 import com.tnt.onlinestore.jms.sender.Sender;
@@ -12,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -38,26 +36,43 @@ public class UserService {
     }
 
     public UserEntity createUser(UserEntity userEntity) {
+        //Use validator class to check whether fields are not null and of valid length
         userValidator.validateUserName(userEntity);
         userValidator.validateUserEmail(userEntity);
         userValidator.validateUserPassword(userEntity);
         userValidator.validateUserAddress(userEntity);
+
+        //Encode password at point of creation
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+
+        //Add role(s) to new userEntity
         RoleEntity role = roleRepository.findByRoleName("ROLE_ADMIN");
         RoleEntity role2 = roleRepository.findByRoleName("ROLE_USER");
         userEntity.addRole(role);
         userEntity.addRole(role2);
-        userEntity.setCart(new CartEntity(userEntity.getId(), userEntity, Collections.emptyList()));
+
+        //Cart initialises here as null. Methods to create cart/ set user's cart are called in the UserController.
+        userEntity.setCart(null);
+
+        //Save the new UserEntity and send custom message via JMS
         userRepository.save(userEntity);
         sender.sendCustomMessage("User created. ID: " + userEntity.getId() + " Name: " + userEntity.getName());
         return userEntity;
     }
 
     public void deleteUser(Long id) {
-        //UserEntity foundUser = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        //cartService.deleteCart(foundUser.getCart().getId());
-        cartRepository.deleteById(id);
-        userRepository.deleteById(id);
+        UserEntity user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        RoleEntity admin = roleRepository.findByRoleName("ROLE_ADMIN");
+        RoleEntity userRole = roleRepository.findByRoleName("ROLE_USER");
+
+        if (userRepository.findById(id).isEmpty()) {
+            throw new com.tnt.onlinestore.exceptions.responseEntityExceptions.EntityNotFoundException("No user with " +
+                    "id "+ id);
+        } else
+
+        user.removeRole(admin);
+        user.removeRole(userRole);
+        userRepository.deleteById(user.getId());
     }
 
     public Optional<UserEntity> findUserById(Long id) {
