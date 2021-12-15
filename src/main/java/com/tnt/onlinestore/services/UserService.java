@@ -71,6 +71,7 @@ public class UserService {
         user.removeRole(userRole);
 
         userRepository.deleteById(user.getId());
+        sender.sendCustomMessage("User with ID " + id + " was deleted.");
     }
 
     public Optional<UserEntity> findUserById(Long id) {
