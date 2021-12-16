@@ -48,7 +48,7 @@ public class UserService {
         //Add role(s) to new userEntity
         RoleEntity adminRole = roleRepository.findByRoleName("ROLE_ADMIN");
         RoleEntity userRole = roleRepository.findByRoleName("ROLE_USER");
-        userEntity.addRole(adminRole);
+        //userEntity.addRole(adminRole);
         userEntity.addRole(userRole);
 
         //Cart initialises here as null. Methods to create cart/ set user's cart are called in the UserController.

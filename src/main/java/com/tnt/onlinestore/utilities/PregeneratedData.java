@@ -42,13 +42,11 @@ public class PregeneratedData {
             userRole.add(user);
 
 
-
             UserEntity adminTom = userRepository.save(new UserEntity(3L, "Tom", "tom@tnt.com", passwordEncoder.encode(
                     "abc"),"Fortress of " + "Solitude", adminRoles, new CartEntity()));
             UserEntity adminTobias = userRepository.save(new UserEntity(4L,"Tobias","tobias@tnt.com",
                     passwordEncoder.encode("123"),"Tobbeland", adminRoles, new CartEntity()));
-            UserEntity userBob = userRepository.save(new UserEntity(5L,"Bob","bob@bob.com",passwordEncoder.encode(
-                    "bob"),"Bobtown", userRole, new CartEntity()));
+
 
         });
     }
