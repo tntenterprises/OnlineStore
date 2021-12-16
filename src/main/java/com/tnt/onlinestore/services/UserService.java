@@ -64,12 +64,7 @@ public class UserService {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "User with id " + id + " was not found"));
 
-        RoleEntity adminRole = roleRepository.findByRoleName("ROLE_ADMIN");
-        RoleEntity userRole = roleRepository.findByRoleName("ROLE_USER");
-
-        user.removeRole(adminRole);
-        user.removeRole(userRole);
-
+        user.clearRoles();
         userRepository.deleteById(user.getId());
         sender.sendCustomMessage("User with ID " + id + " was deleted.");
     }

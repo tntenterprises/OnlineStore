@@ -93,4 +93,13 @@ class UserEntityTest {
         assertFalse(user.getRoles().contains(adminRole));
     }
 
+    @Test
+    void clearRolesShouldLeaveRolesEmpty() {
+        user.addRole(userRole);
+        user.addRole(adminRole);
+        assertEquals(user.getRoles().size(), 2);
+        user.clearRoles();
+        assertTrue(user.getRoles().isEmpty());
+    }
+
 }

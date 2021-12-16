@@ -35,4 +35,11 @@ public class UserEntity {
         roles.remove(role);
         role.getUsers().remove(this);
     }
+
+    public void clearRoles() {
+        for (RoleEntity role: roles) {
+            role.getUsers().remove(this);
+        }
+        roles.clear();
+    }
 }
