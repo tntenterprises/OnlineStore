@@ -1,37 +1,40 @@
 package com.tnt.onlinestore.services;
 
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
 import com.tnt.onlinestore.entities.RoleEntity;
 import com.tnt.onlinestore.entities.UserEntity;
-import com.tnt.onlinestore.jms.sender.Sender;
 import com.tnt.onlinestore.repositories.CartRepository;
 import com.tnt.onlinestore.repositories.RoleRepository;
 import com.tnt.onlinestore.repositories.UserRepository;
 import com.tnt.onlinestore.validators.UserValidator;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final CartService cartService;
-    private final CartRepository cartRepository;
+    // private final CartService cartService;
+    // private final CartRepository cartRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final Sender sender;
+    // private final Sender sender;
     private final UserValidator userValidator;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository,
-                       CartService cartService, CartRepository cartRepository, BCryptPasswordEncoder bCryptPasswordEncoder, Sender sender, UserValidator userValidator) {
+                       CartService cartService, CartRepository cartRepository, BCryptPasswordEncoder bCryptPasswordEncoder, 
+                    //    Sender sender, 
+                       UserValidator userValidator) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.cartService = cartService;
-        this.cartRepository = cartRepository;
+        // this.cartService = cartService;
+        // this.cartRepository = cartRepository;
         this.passwordEncoder = bCryptPasswordEncoder;
-        this.sender = sender;
+        // this.sender = sender;
         this.userValidator = userValidator;
     }
 
@@ -56,7 +59,7 @@ public class UserService {
 
         //Save the new UserEntity and send custom message via JMS
         userRepository.save(userEntity);
-        sender.sendCustomMessage("User created. ID: " + userEntity.getId() + " Name: " + userEntity.getName());
+        // sender.sendCustomMessage("User created. ID: " + userEntity.getId() + " Name: " + userEntity.getName());
         return userEntity;
     }
 
@@ -66,7 +69,7 @@ public class UserService {
 
         user.clearRoles();
         userRepository.deleteById(user.getId());
-        sender.sendCustomMessage("User with ID " + id + " was deleted.");
+        // sender.sendCustomMessage("User with ID " + id + " was deleted.");
     }
 
     public Optional<UserEntity> findUserById(Long id) {

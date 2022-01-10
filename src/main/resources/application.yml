@@ -1,5 +1,8 @@
 
 spring:
+    main:
+        allow-circular-references: true
+
     datasource:
         url: jdbc:h2:mem:onlinestore
 
@@ -17,3 +20,11 @@ spring:
         password: simetraehcapa
         host: localhost
         port: 61616
+
+server:
+  port: 80
+
+store:
+    app:
+        jwtSecret: jwtSecret
+        jwtExpirationMs: 86400000
