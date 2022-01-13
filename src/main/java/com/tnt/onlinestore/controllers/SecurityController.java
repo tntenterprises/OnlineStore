@@ -78,24 +78,14 @@ public class SecurityController {
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    @GetMapping("/testuser")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<MessageResponse> test() {
-        return ResponseEntity.ok().body(new MessageResponse("It Works User"));
-    }
-
-    @GetMapping("/testadmin")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<MessageResponse> test2() {
-        return ResponseEntity.ok().body(new MessageResponse("It Works Admin"));
-    }
-
     @PutMapping("/admin/makeadmin/{id}")
     public ResponseEntity<Optional<UserEntity>> makeAdmin(@PathVariable Long id) {
         userService.addAdminRole(id);
         return new ResponseEntity<>(userService.findUserById(id), HttpStatus.ACCEPTED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/removeAdmin/{id}")
     public ResponseEntity<Optional<UserEntity>> removeAdmin(@PathVariable Long id) {
         userService.removeAdminRole(id);

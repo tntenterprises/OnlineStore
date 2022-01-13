@@ -13,13 +13,12 @@ spring:
                 
     h2:
         console:
-            enabled: true
+            enabled: false
 
     artemis:
         user: artemis
         password: simetraehcapa
-        host: localhost
-        port: 61616
+        broker-url: tcp://localhost:61616
 
 server:
   port: 80

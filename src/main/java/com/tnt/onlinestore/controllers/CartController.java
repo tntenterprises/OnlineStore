@@ -12,6 +12,7 @@ import com.tnt.onlinestore.services.UserService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,17 +35,20 @@ public class CartController {
         this.productService = productService;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<Iterable<CartEntity>> getAllCarts() {
         return new ResponseEntity<>(cartService.getAllCarts(), HttpStatus.OK);
     }
 
-    @GetMapping({"{id}"})
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("{id}")
     public ResponseEntity<CartEntity> getCartById(@PathVariable Long id) {
         CartEntity cart = cartService.getCartById(id);
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("addProduct/{id}")
     public ResponseEntity<CartEntity> addProduct(@PathVariable Long id, @RequestBody ProductEntity productEntity) {
         UserEntity user = userService.findUserById(id).orElseThrow(EntityNotFoundException::new);
@@ -53,6 +57,7 @@ public class CartController {
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("removeProduct/{id}/{id2}")
     public ResponseEntity<CartEntity> removeProduct(@PathVariable Long id, @PathVariable Long id2) {
         UserEntity user = userService.findUserById(id).orElseThrow(EntityNotFoundException::new);
@@ -62,6 +67,7 @@ public class CartController {
         return new ResponseEntity<>(cart, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("clear/{id}")
     public ResponseEntity<CartEntity> clearCart(@PathVariable Long id) {
         CartEntity cart = cartService.getCartById(id);

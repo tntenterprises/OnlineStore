@@ -1,17 +1,23 @@
 package com.tnt.onlinestore.utilities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.tnt.onlinestore.entities.CartEntity;
 import com.tnt.onlinestore.entities.RoleEntity;
 import com.tnt.onlinestore.entities.UserEntity;
-import com.tnt.onlinestore.repositories.*;
+import com.tnt.onlinestore.repositories.CartRepository;
+import com.tnt.onlinestore.repositories.ManufacturerRepository;
+import com.tnt.onlinestore.repositories.ProductRepository;
+import com.tnt.onlinestore.repositories.RoleRepository;
+import com.tnt.onlinestore.repositories.StoreRepository;
+import com.tnt.onlinestore.repositories.UserRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Scope("singleton")
 @Configuration
@@ -19,7 +25,6 @@ public class PregeneratedData {
 
     //Generate data at start up
     Set<RoleEntity> adminRoles = new HashSet<>();
-    Set<RoleEntity> userRole = new HashSet<>();
 
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -39,13 +44,9 @@ public class PregeneratedData {
             adminRoles.add(admin);
             adminRoles.add(user);
 
-            userRole.add(user);
 
-
-            UserEntity adminTom = userRepository.save(new UserEntity(3L, "Tom", "tom@tnt.com", passwordEncoder.encode(
-                    "abc"),"Fortress of " + "Solitude", adminRoles, new CartEntity()));
-            UserEntity adminTobias = userRepository.save(new UserEntity(4L,"Tobias","tobias@tnt.com",
-                    passwordEncoder.encode("123"),"Tobbeland", adminRoles, new CartEntity()));
+            UserEntity adminTom = userRepository.save(new UserEntity(1L, "admin", "admin@tnt.com", passwordEncoder.encode(
+                    "tntenterprises"),"Nowhere", adminRoles, new CartEntity()));
 
 
         });
