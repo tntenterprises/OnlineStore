@@ -3,8 +3,7 @@
 
 name: Workflow
 
-on:
-  push:
+on: push
 
 jobs:
   build:
