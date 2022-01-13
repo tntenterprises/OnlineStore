@@ -10,4 +10,14 @@ public class OnlineStoreApplication {
         SpringApplication.run(OnlineStoreApplication.class, args);
     }
 
+    //Generate RoleEntities at startup
+
+    /*@Bean
+    public CommandLineRunner setUpRoles(RoleRepository roleRepository) {
+        return (args -> {
+            roleRepository.save(new RoleEntity(1L,"ROLE_ADMIN"));
+            roleRepository.save(new RoleEntity(2L,"ROLE_USER"));
+        });
+    }*/
+
 }
