@@ -30,7 +30,7 @@ public class StoreController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("create")
+    @PostMapping()
     public ResponseEntity<StoreEntity> createStore(@RequestBody StoreEntity store) {
         StoreEntity createdStore = storeService.create(store);
         return new ResponseEntity<>(createdStore, HttpStatus.CREATED);

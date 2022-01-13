@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("carts")
 public class CartController {
 
-    // Random comment
     private final CartService cartService;
     private final UserService userService;
     private final ProductService productService;
@@ -50,7 +49,7 @@ public class CartController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("addProduct/{id}")
+    @PutMapping("addproduct/{id}")
     public ResponseEntity<CartEntity> addProduct(@PathVariable Long id, @RequestBody ProductEntity productEntity) {
         UserEntity user = userService.findUserById(id).orElseThrow(EntityNotFoundException::new);
         CartEntity cart = user.getCart();
@@ -59,7 +58,7 @@ public class CartController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("removeProduct/{id}/{id2}")
+    @PutMapping("removeproduct/{id}/{id2}")
     public ResponseEntity<CartEntity> removeProduct(@PathVariable Long id, @PathVariable Long id2) {
         UserEntity user = userService.findUserById(id).orElseThrow(EntityNotFoundException::new);
         CartEntity cart = user.getCart();

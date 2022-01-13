@@ -36,7 +36,7 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("create/{storeIds}")
+    @PostMapping("{storeIds}")
     public ResponseEntity<ProductEntity> createProduct(@RequestBody ProductEntity product, @PathVariable(required = false) List<Long> storeIds) {
         ProductEntity createdProduct = productService.create(product);
         storeIds.forEach(id -> {

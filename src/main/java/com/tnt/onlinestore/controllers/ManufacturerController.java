@@ -30,7 +30,7 @@ public class ManufacturerController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("create")
+    @PostMapping()
     public ResponseEntity<ManufacturerEntity> createManufacturer(@RequestBody ManufacturerEntity manufacturer) {
         ManufacturerEntity createdManufacturer = manufacturerService.create(manufacturer);
         return new ResponseEntity<>(createdManufacturer, HttpStatus.CREATED);

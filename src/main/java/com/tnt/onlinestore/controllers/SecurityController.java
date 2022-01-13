@@ -25,7 +25,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,11 +42,6 @@ public class SecurityController {
     private final CartService cartService;
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticate(@Valid @RequestBody LoginRequest loginRequest) {
@@ -86,7 +80,7 @@ public class SecurityController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/admin/removeAdmin/{id}")
+    @PutMapping("/admin/removeadmin/{id}")
     public ResponseEntity<Optional<UserEntity>> removeAdmin(@PathVariable Long id) {
         userService.removeAdminRole(id);
         return new ResponseEntity<>(userService.findUserById(id), HttpStatus.ACCEPTED);
