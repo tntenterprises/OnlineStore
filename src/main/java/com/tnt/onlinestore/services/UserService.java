@@ -1,9 +1,5 @@
 package com.tnt.onlinestore.services;
 
-import java.util.Optional;
-
-import javax.persistence.EntityNotFoundException;
-
 import com.tnt.onlinestore.entities.RoleEntity;
 import com.tnt.onlinestore.entities.UserEntity;
 import com.tnt.onlinestore.jms.sender.Sender;
@@ -11,9 +7,11 @@ import com.tnt.onlinestore.repositories.CartRepository;
 import com.tnt.onlinestore.repositories.RoleRepository;
 import com.tnt.onlinestore.repositories.UserRepository;
 import com.tnt.onlinestore.validators.UserValidator;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -104,12 +102,12 @@ public class UserService {
 
     public void addAdminRole(Long id) {
         UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
-        user.addRole(roleRepository.findByRoleName("ADMIN"));
+        user.addRole(roleRepository.findByRoleName("ROLE_ADMIN"));
     }
 
     public void removeAdminRole(Long id) {
         UserEntity user = findUserById(id).orElseThrow(EntityNotFoundException::new);
-        user.removeRole(roleRepository.findByRoleName("ADMIN"));
+        user.removeRole(roleRepository.findByRoleName("ROLE_ADMIN"));
     }
 
 }
