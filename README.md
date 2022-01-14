@@ -235,7 +235,7 @@ Body
 
 #### Remove a product from a cart
 `
-PUT - http://localhost:80/carts/addproduct/{userId}/{productId}
+PUT - http://localhost:80/carts/removeproduct/{userId}/{productId}
 `
 
 #### Clear a cart
